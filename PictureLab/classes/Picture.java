@@ -38,6 +38,12 @@ public class Picture extends SimplePicture
     super(fileName);
   }
   
+  public Picture(java.net.URL fileUrl) throws java.io.IOException
+  {
+    // let the parent class handle this fileName
+    super(javax.imageio.ImageIO.read(fileUrl));
+  }
+  
   /**
    * Constructor that takes the width and height
    * @param height the height of the desired picture
@@ -216,6 +222,26 @@ public class Picture extends SimplePicture
       }
     }
   }
+  public void mirrorVerticalRightToLeft(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=0; row<height; row++){
+          for(int col=width-1; col > width / 2; col--){
+              pixels[row][width-1-col].setColor(pixels[row][col].getColor());
+            }
+        }
+    }
+  public void mirrorVerticalLeftToRight(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=0; row<height; row++){
+          for(int col=0; col<width / 2; col++){
+              pixels[row][width-1-col].setColor(pixels[row][col].getColor());
+            }
+        }
+    }
   
   
   /* Main method for testing - each class in Java can have a main 

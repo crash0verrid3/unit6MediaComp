@@ -798,9 +798,9 @@ public class PictureExplorer implements MouseMotionListener, ActionListener, Mou
   /**
    * Test Main.  It will explore the beach 
    */
-  public static void main( String args[])
+  public static void main( String args[]) throws java.io.IOException
   {
-    Picture pix = new Picture("beach.jpg");
+    Picture pix = new Picture(new java.net.URL("http://www.keenthemes.com/preview/metronic/theme/assets/global/plugins/jcrop/demos/demo_files/image1.jpg"));
     pix.explore();
   }
   
