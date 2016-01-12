@@ -242,12 +242,49 @@ public class Picture extends SimplePicture
             }
         }
     }
-  
+  public void grayscale(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=0; row<height; row++){
+          for(int col=0; col<width; col++){
+              Color color = pixels[row][col].getColor();
+              int[] rgb = new int[]{color.getRed(), color.getGreen(), color.getBlue()};
+              int average = 0;
+              for(int a : rgb){
+                  average += a;
+                }
+              average /= 3;
+              pixels[row][col].setColor(new Color(average, average, average, color.getAlpha()));
+            }
+        }
+    }
+    
+  public void mirrorHorizontalBottomToTop(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=height-1; row>height/2; row--){
+          for(int col=0; col < width; col++){
+              pixels[height-1-row][col].setColor(pixels[row][col].getColor());
+            }
+        }
+    }
+  public void mirrorHorizontalTopToBottom(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=0; row<height/2; row++){
+          for(int col=0; col < width; col++){
+              pixels[height-1-row][col].setColor(pixels[row][col].getColor());
+            }
+        }
+    }
   
   /* Main method for testing - each class in Java can have a main 
    * method 
    */
-  public static void main(String[] args) 
+  public static void main(String[] args)
   {
     Picture beach = new Picture("beach.jpg");
     beach.explore();
