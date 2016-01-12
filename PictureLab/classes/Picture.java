@@ -221,6 +221,36 @@ public class Picture extends SimplePicture
           leftPixel.setColor(Color.WHITE);
       }
     }
+    for (int row = 0; row < pixels.length; row++)
+    {
+      for (int col = 0; 
+           col < pixels[0].length-1; col++)
+      {
+        leftPixel = pixels[row][col];
+        rightPixel = pixels[row][col+1];
+        Color leftColor = leftPixel.getColor();
+        if (leftColor.equals(Color.BLACK)){
+            boolean[] count_data = new boolean[0];
+            try{
+                count_data = new boolean[]{pixels[row][col+1].getColor().equals(Color.BLACK), pixels[row][col-1].getColor().equals(Color.BLACK), pixels[row+1][col].getColor().equals(Color.BLACK), pixels[row-1][col].getColor().equals(Color.BLACK)};
+            } catch(java.lang.ArrayIndexOutOfBoundsException e){
+                // Ignore
+            }
+                int count = 0;
+          for(boolean b : count_data){
+              if(b){
+                  count ++;
+                }
+            }
+          if(count >= 2){
+              pixels[row][col].setColor(Color.BLACK);
+            } else{
+              pixels[row][col].setColor(Color.WHITE);
+            }
+        } else
+          pixels[row][col].setColor(Color.WHITE);
+      }
+    }
   }
   public void mirrorVerticalRightToLeft(){
       Pixel[][] pixels = this.getPixels2D();
@@ -277,6 +307,27 @@ public class Picture extends SimplePicture
       for(int row=0; row<height/2; row++){
           for(int col=0; col < width; col++){
               pixels[height-1-row][col].setColor(pixels[row][col].getColor());
+            }
+        }
+    }
+    
+    public void mirrorPartLeftToRight(int x1, int y1, int x2, int y2, int mirrorPoint) // Untested
+    {
+        Pixel leftPixel = null;
+        Pixel rightPixel = null;
+        int count = 0;
+        Pixel[][] pixels = this.getPixels2D();
+        // loop through the rows
+        for (int row = y1; row < y2; row++)
+        {
+            // loop from 13 to just before the mirror point
+            for (int col = x1; col < mirrorPoint; col++)
+            {
+                leftPixel = pixels[row][col];
+                if(mirrorPoint - col + mirrorPoint <= x2){
+                    rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
+                    rightPixel.setColor(leftPixel.getColor());
+                }
             }
         }
     }
