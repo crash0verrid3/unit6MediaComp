@@ -39,6 +39,27 @@ public class PictureTester
     caterpillar.mirrorHorizontalTopToBottom();
     caterpillar.explore();
   }
+  public static void testMirrorTopToBottomAndFlip()
+  {
+    Picture caterpillar = new Picture("caterpillar.jpg");
+    caterpillar.explore();
+    caterpillar.mirrorTopToBottomAndFlip();
+    caterpillar.explore();
+  }
+  public static void testMirrorDiagonalULtoLRandFlip()
+  {
+    Picture caterpillar = new Picture("caterpillar.jpg");
+    caterpillar.explore();
+    caterpillar.mirrorDiagonalULtoLRandFlip();
+    caterpillar.explore();
+  }
+  public static void testMirrorURtoLL()
+  {
+    Picture caterpillar = new Picture("swan.jpg");
+    caterpillar.explore();
+    caterpillar.mirrorURtoLL();
+    caterpillar.explore();
+  }
   public static void testMirrorHorizontalBottomToTop()
   {
     Picture caterpillar = new Picture("caterpillar.jpg");
@@ -73,7 +94,7 @@ public class PictureTester
   /** Method to test edgeDetection */
   public static void testEdgeDetection()
   {
-    Picture swan = new Picture("temple.jpg");
+    Picture swan = new Picture("swan.jpg");
     swan.edgeDetection(10);
     swan.explore();
   }

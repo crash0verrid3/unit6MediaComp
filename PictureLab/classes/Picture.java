@@ -195,8 +195,7 @@ public class Picture extends SimplePicture
     this.mirrorVertical();
     this.write("collage.jpg");
   }
-  
-  
+ 
   /** Method to show large changes in color 
     * @param edgeDist the distance for finding edges
     */
@@ -328,6 +327,41 @@ public class Picture extends SimplePicture
                     rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
                     rightPixel.setColor(leftPixel.getColor());
                 }
+            }
+        }
+    }
+    
+  public void mirrorDiagonalULtoLRandFlip(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=0; row<height; row++){
+          for(int col=0; col < width; col++){
+              if(! (row + col >= height/2 + width/2)){
+                  pixels[height-1-row][width-1-col].setColor(pixels[row][col].getColor());
+                }
+            }
+        }
+    }
+  public void mirrorURtoLL(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=0; row<height; row++){
+          for(int col=0; col < width; col++){
+              if(row < width && col < height){
+                  pixels[col][row].setColor(pixels[row][col].getColor());
+                }
+            }
+        }
+    }
+  public void mirrorTopToBottomAndFlip(){
+      Pixel[][] pixels = this.getPixels2D();
+      int width = pixels[0].length;
+      int height = pixels.length;
+      for(int row=0; row<height/2; row++){
+          for(int col=0; col < width; col++){
+              pixels[height-1-row][width-1-col].setColor(pixels[row][col].getColor());
             }
         }
     }
