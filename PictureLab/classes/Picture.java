@@ -365,6 +365,16 @@ public class Picture extends SimplePicture
             }
         }
     }
+  public Color getColorAt(int row, int col){
+      Pixel[][] pixels = this.getPixels2D();
+      return pixels[row][col].getColor();
+    }
+  public int rows(){
+      return this.getPixels2D().length;
+    }
+  public int cols(){
+      return this.getPixels2D()[0].length;
+    }
   
   /* Main method for testing - each class in Java can have a main 
    * method 

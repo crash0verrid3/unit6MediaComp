@@ -98,6 +98,15 @@ public class PictureTester
     swan.edgeDetection(10);
     swan.explore();
   }
+  public static void testAnomalyDetection(String anomaly, String url) throws java.io.IOException
+  {
+    Anomaly a = new Anomaly(anomaly);
+    Picture pic = new Picture(new java.net.URL(url));
+    a.test(pic);
+    System.out.println("Anomaly count: "+a.getAnomalyCount());
+    System.out.println("Anomalies found:\n"+a.getAnomalyString());
+    pic.explore();
+  }
   /*
   public static void testCrop(int x1, int y1, int width, int height)
   {
