@@ -123,7 +123,41 @@ public class Picture extends SimplePicture
       }
     } 
   }
-  
+  public Picture cropped(int startRow, int startCol, int rows, int cols){
+      Picture ret = new Picture(rows, cols);
+      Pixel[][] pix = this.getPixels2D();
+      Pixel[][] retPix = ret.getPixels2D();
+      for(int a=0; a<rows; a++){
+          for(int b=0; b<cols; b++){
+              retPix[a][b].setColor(pix[a+startRow][b+startCol].getColor());
+            }
+        }
+      return ret;
+    }
+  public void cropAndCopy(Picture source, int startRow, int startCol, int rows, int cols, int endRow, int endCol){
+      this.copy(source.cropped(startRow, startCol, rows, cols), endRow, endCol);
+    }
+  public Picture scaled(double divideHeight, double divideWidth){
+      Pixel[][] pix = this.getPixels2D();
+      Picture ret = new Picture((int)(pix.length/divideHeight), (int)(pix[0].length/divideWidth));
+      Pixel[][] retPix = ret.getPixels2D();
+      for(int a=0; a<retPix.length; a++){
+          for(int b=0; b<retPix[0].length; b++){
+              retPix[a][b].setColor(pix[(int)(a*divideHeight)][(int)(b*divideWidth)].getColor());
+            }
+        }
+      return ret;
+    }
+  public Picture scaled(double divideBy){
+      return scale(divideBy, divideBy);
+    }
+  public Picture scaledTo(int width, int height){
+      Pixel[][] pix = this.getPixels2D();
+      double dH = pix.length / (double)height;
+      double dW = pix[0].length / (double)width;
+      pix = null;
+      return scaled(dH, dW);
+    }
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
@@ -184,15 +218,25 @@ public class Picture extends SimplePicture
   {
     Picture flower1 = new Picture("flower1.jpg");
     Picture flower2 = new Picture("flower2.jpg");
+    Picture grayCater = new Picture("caterpillar.jpg");
+    grayCater.grayscale();
+    this.copy(grayCater, 640, 400);
+    Picture robot = new Picture("robot.jpg");
+    robot.edgeDetection(1);
+    this.copy(robot.scaledTo(50, 50), 50, 50);
+    Picture snowmanPoorEdgeDetection = new Picture("snowman.jpg");
+    snowmanPoorEdgeDetection = snowmanPoorEdgeDetection.scale(2.5, 2.5);
+    snowmanPoorEdgeDetection.edgeDetection(5);
+    this.copy(snowmanPoorEdgeDetection, 80, 600);
     this.copy(flower1,0,0);
     this.copy(flower2,100,0);
     this.copy(flower1,200,0);
     Picture flowerNoBlue = new Picture(flower2);
     flowerNoBlue.zeroBlue();
-    this.copy(flowerNoBlue,300,0);
+    this.copy(flowerNoBlue.scale(3, 2.5),300,0);
     this.copy(flower1,400,0);
     this.copy(flower2,500,0);
-    this.mirrorVertical();
+    //this.mirrorVertical();
     this.write("collage.jpg");
   }
  

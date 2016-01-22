@@ -9,6 +9,16 @@
 public class PictureTester
 {
   /** Method to test zeroBlue */
+  public static void explore(String url) throws java.io.IOException
+  {
+    Picture pic = new Picture(new java.net.URL(url));
+    pic.explore();
+  }
+  public static void explore() throws java.io.IOException
+  {
+    Picture pic = new Picture(FileChooser.pickAFile());
+    pic.explore();
+  }
   public static void testZeroBlue()
   {
     Picture beach = new Picture("beach.jpg");
@@ -23,7 +33,15 @@ public class PictureTester
     caterpillar.mirrorVerticalRightToLeft();
     caterpillar.explore();
   }
-  
+  public static void testScale()
+  {
+    Picture caterpillar = new Picture(FileChooser.pickAFile());
+    caterpillar.explore();
+    System.out.println("Size: ");
+    java.util.Scanner s = new java.util.Scanner(System.in);
+    caterpillar = caterpillar.scaledTo(s.nextInt(), s.nextInt());
+    caterpillar.explore();
+  }
   /** Method to test mirrorVertical */
   public static void testMirrorVerticalLeftToRight()
   {
@@ -80,7 +98,7 @@ public class PictureTester
   /** Method to test the collage method */
   public static void testCollage()
   {
-    Picture canvas = new Picture("640x480.jpg");
+    Picture canvas = new Picture(1000, 1000);
     canvas.createCollage();
     canvas.explore();
   }
@@ -107,13 +125,14 @@ public class PictureTester
     System.out.println("Anomalies found:\n"+a.getAnomalyString());
     pic.explore();
   }
-  /*
-  public static void testCrop(int x1, int y1, int width, int height)
+  
+  public static void testCropAndCopy()
   {
-    Picture canvas = new Picture("beach.jpg");
-    canvas.crop(x1, y1, width, height);
+    Picture canvas = new Picture("640x480.jpg");
+    Picture source = new Picture(FileChooser.pickAFile());
+    canvas.cropAndCopy(source, 0, 0, 150, 100, 200, 150);
     canvas.explore();
-  }*/
+  }
   
   /** Main method for testing.  Every class can have a main
     * method in Java */
